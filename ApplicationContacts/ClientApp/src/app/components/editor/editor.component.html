@@ -1,0 +1,127 @@
+
+<br>
+
+<mat-card>
+    <mat-card-title>
+        <p *ngIf="clienteId == 0" style="display: inline-block;">Cadastro de Cliente</p>
+        <p *ngIf="clienteId != 0" style="display: inline-block;">Edição do Cliente</p>
+        <button (click)="salvarInformacoes()" mat-flat-button color="primary" color="primary" style="margin-left: 50px;">Salvar</button>
+    </mat-card-title>
+    <mat-divider></mat-divider>
+    <br>
+    <mat-card-content>
+        <form action="">
+            <div class="row">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Nome</mat-label>
+                        <input matInput [(ngModel)]="clienteSelecionado.nome" [ngModelOptions]="{standalone: true}">
+                    </mat-form-field>
+            </div>
+            <div class="row">
+                <mat-form-field appearance="fill">
+                    <mat-label>Data de Nascimento</mat-label>
+                    <input matInput [matDatepicker]="dataNascimento" [formControl]="dataNascimentoISO">
+                    <mat-datepicker-toggle matSuffix [for]="dataNascimento"></mat-datepicker-toggle>
+                    <mat-datepicker #dataNascimento></mat-datepicker>
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>CPF</mat-label>
+                    <input matInput [textMask]="{mask: cpfMask}" [(ngModel)]="clienteSelecionado.cpf" [ngModelOptions]="{standalone: true}">
+                </mat-form-field>
+                <mat-form-field appearance="fill">
+                    <mat-label>RG</mat-label>
+                    <input matInput [textMask]="{mask: rgMask}" [(ngModel)]="clienteSelecionado.rg" [ngModelOptions]="{standalone: true}">
+                </mat-form-field>
+            </div>
+
+            <div *ngIf="clienteId != '0'">
+            <br>
+            <mat-divider></mat-divider>
+            <br>
+            <h3> Redes Sociais </h3>
+            <br>
+
+            <div class="row">
+                <div class="col" *ngFor="let redeSocial of clienteSelecionado.redesSociais">
+                    <mat-form-field appearance="fill">
+                        <mat-label>{{redeSocial.tipoRedeSocial.nome}}</mat-label>
+                        <input matInput [(ngModel)]="redeSocial.url" [ngModelOptions]="{standalone: true}">
+                    </mat-form-field>
+                </div>
+            </div>
+            <br>
+            <mat-divider></mat-divider>
+            <br>
+            <h3> Endereços </h3>
+            <br>
+            <mat-list>
+                <mat-list-item *ngFor="let cxe of clienteSelecionado.clienteXEnderecos" style="margin-bottom: 10px;">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Tipo Endereço</mat-label>
+                        <mat-select [(ngModel)]="cxe.tipoClienteXEndereco.id" [ngModelOptions]="{standalone: true}">
+                            <mat-option *ngFor="let tipoEndereco of tiposEnderecos" [value]="tipoEndereco.id">{{tipoEndereco.descricao}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="fill">
+                        <mat-label>Estado</mat-label>
+                        <mat-select [(ngModel)]="cxe.endereco.cidade.estado.id" [ngModelOptions]="{standalone: true}">
+                            <mat-option *ngFor="let estado of estados" [value]="estado.id" >{{estado.nome}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="fill">
+                        <mat-label>Cidades</mat-label>
+                        <mat-select [(ngModel)]="cxe.endereco.cidade.id" [ngModelOptions]="{standalone: true}">
+                            <mat-option *ngFor="let cidade of filtro(cidades, cxe.endereco.cidade.estado.id)" [value]="cidade.id" >{{cidade.nome}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="fill">
+                        <mat-label>Rua</mat-label>
+                        <input matInput [(ngModel)]="cxe.endereco.rua" [ngModelOptions]="{standalone: true}">
+                    </mat-form-field>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Número</mat-label>
+                        <input matInput [(ngModel)]="cxe.endereco.numero" [ngModelOptions]="{standalone: true}">
+                    </mat-form-field>
+                    <mat-form-field appearance="fill">
+                        <mat-label>Complemento</mat-label>
+                        <input matInput [(ngModel)]="cxe.endereco.complemento" [ngModelOptions]="{standalone: true}">
+                    </mat-form-field>
+                    <mat-form-field appearance="fill">
+                        <mat-label>CEP</mat-label>
+                        <input matInput [textMask]="{mask: cepMask}" [(ngModel)]="cxe.endereco.cep" [ngModelOptions]="{standalone: true}">
+                    </mat-form-field>
+                </mat-list-item>
+            </mat-list>
+            <button (click)="adicionarEndereco()" mat-button>Adicionar um novo endereço</button>
+
+            <br>
+            <mat-divider></mat-divider>
+            <br>
+            <h3> Telefones </h3>
+            <br>
+            <mat-list>
+                <mat-list-item *ngFor="let cxt of clienteSelecionado.clienteXTelefones" style="margin-bottom: 10px;">
+                    <mat-form-field appearance="fill">
+                        <mat-label>Tipo Telefone</mat-label>
+                        <mat-select [(ngModel)]="cxt.tipoClienteXTelefone.id" [ngModelOptions]="{standalone: true}">
+                            <mat-option *ngFor="let tipoTelefone of tiposTelefones" [value]="tipoTelefone.id">{{tipoTelefone.descricao}}</mat-option>
+                        </mat-select>
+                    </mat-form-field>
+
+                    <mat-form-field appearance="fill">
+                        <mat-label>Número</mat-label>
+                        <input matInput [(ngModel)]="cxt.telefone.numero" [ngModelOptions]="{standalone: true}">
+                    </mat-form-field>
+
+                </mat-list-item>
+            </mat-list>
+            <button (click)="adicionarTelefone()" mat-button>Adicionar um novo telefone</button>
+            </div>
+
+        </form>
+    </mat-card-content>
+</mat-card>
+

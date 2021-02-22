@@ -1,0 +1,77 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>ApplicationContacts.API</name>
+    </assembly>
+    <members>
+        <member name="T:ApplicationContacts.API.Controllers.ClienteController">
+            <summary>
+            API Responsável pelas requisições voltadas aos clientes
+            </summary>
+        </member>
+        <member name="M:ApplicationContacts.API.Controllers.ClienteController.GetAsync(ApplicationContacts.Infrastructure.Helpers.PageParams)">
+            <summary>
+            Retorna os clientes baseado na paginação atual
+            </summary>
+            <param name="pageParams"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ApplicationContacts.API.Controllers.ClienteController.GetAsync">
+            <summary>
+            Retorna todos os clientes cadastrados
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ApplicationContacts.API.Controllers.ClienteController.GetAsync(System.Int32)">
+            <summary>
+            Retorna um cliente especificado pelo Id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ApplicationContacts.API.Controllers.ClienteController.PostAsync(ApplicationContacts.Domain.DTOs.ClienteCadastroDTO)">
+            <summary>
+            Método para criação de um novo cliente
+            </summary>
+            <param name="clienteDTO"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ApplicationContacts.API.Controllers.ClienteController.PutAsync(ApplicationContacts.Domain.DTOs.ClienteDTO)">
+            <summary>
+            Método para a atualização das informações do cliente
+            </summary>
+            <param name="clienteDTO"></param>
+            <returns></returns>
+        </member>
+        <member name="M:ApplicationContacts.API.Controllers.EstadoController.GetAsync">
+            <summary>
+            Recupera todos os Estados do Brasil
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ApplicationContacts.API.Controllers.EstadoController.GetCidadesAsync">
+            <summary>
+            Recupera todas as cidades
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ApplicationContacts.API.Controllers.TipoController.GetTipoClienteXEnderecoAsync">
+            <summary>
+            Retorna todos os tipos de associação entre Cliente e Endereço
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ApplicationContacts.API.Controllers.TipoController.GetTipoClienteXTelefoneAsync">
+            <summary>
+            Retorna todos os tipos de associação entre Cliente e Telefone
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:ApplicationContacts.API.Controllers.TipoController.GetTipoRedeSocialAsync">
+            <summary>
+            Retorna todos os tipos de redes sociais que podem ser associadas
+            </summary>
+            <returns></returns>
+        </member>
+    </members>
+</doc>
